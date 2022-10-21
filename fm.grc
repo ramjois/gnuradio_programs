@@ -1,0 +1,313 @@
+options:
+  parameters:
+    author: Ram
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: sineWaveFlowgraph
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: FM Radio
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '960000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [120, 8.0]
+    rotation: 0
+    state: enabled
+- name: tuning
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: frequency
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    outputmsgname: value
+    rangeType: float
+    showports: 'False'
+    start: '72000000'
+    step: '10000'
+    stop: '74500000'
+    value: '72000000'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [192, 4.0]
+    rotation: 0
+    state: true
+- name: analog_wfm_rcv_0
+  id: analog_wfm_rcv
+  parameters:
+    affinity: ''
+    alias: ''
+    audio_decimation: '2'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    quad_rate: samp_rate
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [408, 160.0]
+    rotation: 0
+    state: enabled
+- name: audio_sink_0
+  id: audio_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    device_name: ''
+    num_inputs: '1'
+    ok_to_block: 'True'
+    samp_rate: '48000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [384, 276.0]
+    rotation: 180
+    state: true
+- name: blocks_multiply_const_vxx_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '0.1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [544, 276.0]
+    rotation: 180
+    state: enabled
+- name: low_pass_filter_0_0
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '30000'
+    decim: '2'
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate/2
+    type: fir_filter_fff
+    width: '3000'
+    win: window.WIN_RECTANGULAR
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [568, 136.0]
+    rotation: 0
+    state: true
+- name: low_pass_filter_0_0_0
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '20000'
+    decim: '5'
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate/4
+    type: fir_filter_fff
+    width: '3000'
+    win: window.WIN_RECTANGULAR
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [728, 136.0]
+    rotation: 0
+    state: true
+- name: low_pass_filter_0_0_0_0_0
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '10000'
+    decim: '1'
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate/20
+    type: fir_filter_fff
+    width: '3000'
+    win: window.WIN_RECTANGULAR
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [728, 248.0]
+    rotation: 180
+    state: true
+- name: low_pass_filter_0_1
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '120000'
+    decim: '1'
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    type: fir_filter_ccf
+    width: '5000'
+    win: window.WIN_RECTANGULAR
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [256, 136.0]
+    rotation: 0
+    state: true
+- name: qtgui_sink_x_0_0
+  id: qtgui_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    bw: '1000000'
+    comment: ''
+    fc: tuning
+    fftsize: '1024'
+    gui_hint: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    plotconst: 'True'
+    plotfreq: 'True'
+    plottime: 'True'
+    plotwaterfall: 'True'
+    rate: '1000'
+    showports: 'False'
+    showrf: 'True'
+    type: float
+    wintype: window.WIN_RECTANGULAR
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [520, 368.0]
+    rotation: 180
+    state: true
+- name: qtgui_sink_x_0_0_0
+  id: qtgui_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    bw: '1000000'
+    comment: ''
+    fc: tuning
+    fftsize: '1024'
+    gui_hint: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    plotconst: 'True'
+    plotfreq: 'True'
+    plottime: 'True'
+    plotwaterfall: 'True'
+    rate: '1000'
+    showports: 'False'
+    showrf: 'True'
+    type: complex
+    wintype: window.WIN_RECTANGULAR
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [64, 264.0]
+    rotation: 180
+    state: true
+- name: soapy_rtlsdr_source_0
+  id: soapy_rtlsdr_source
+  parameters:
+    affinity: ''
+    agc: 'False'
+    alias: ''
+    center_freq: tuning
+    comment: ''
+    dev_args: rtl=0
+    freq_correction: '0'
+    gain: '20'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    type: fc32
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [88, 156.0]
+    rotation: 0
+    state: true
+
+connections:
+- [analog_wfm_rcv_0, '0', low_pass_filter_0_0, '0']
+- [blocks_multiply_const_vxx_0, '0', audio_sink_0, '0']
+- [low_pass_filter_0_0, '0', low_pass_filter_0_0_0, '0']
+- [low_pass_filter_0_0_0, '0', low_pass_filter_0_0_0_0_0, '0']
+- [low_pass_filter_0_0_0_0_0, '0', blocks_multiply_const_vxx_0, '0']
+- [low_pass_filter_0_0_0_0_0, '0', qtgui_sink_x_0_0, '0']
+- [low_pass_filter_0_1, '0', analog_wfm_rcv_0, '0']
+- [soapy_rtlsdr_source_0, '0', low_pass_filter_0_1, '0']
+- [soapy_rtlsdr_source_0, '0', qtgui_sink_x_0_0_0, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.4.0
